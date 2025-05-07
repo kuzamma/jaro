@@ -1,8 +1,7 @@
 {
-    "shit": "poop",
-    "fuck": "fudge",
-    "asshole": "jerk",
-    "bitch": "mean person",
-    "damn": "darn",
-    "crap": "garbage"
+    "crap": ["poop", "dung", "waste"],
+    "asshole": ["jerk", "mean person", "rude individual"],
+    "shit": ["shoot", "darn", "crap"],
+    "fuck": ["fudge", "freak", "flip"],
+    "damn": ["darn", "dang", "drat"]
 }
