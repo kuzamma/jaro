@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bad Word Filter</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+        button { padding: 10px 15px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+        .result { margin-top: 20px; padding: 15px; border: 1px solid #ddd; }
+        .original { color: #333; }
+        .filtered { color: #4CAF50; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Bad Word Filter</h1>
+    <textarea id="inputText" placeholder="Type something..."></textarea>
+    <button id="filterBtn">Filter Text</button>
+    
+    <div class="result">
+        <h3>Results:</h3>
+        <p><strong>Original:</strong> <span id="original" class="original"></span></p>
+        <p><strong>Normalized:</strong> <span id="normalized"></span></p>
+        <p><strong>Filtered:</strong> <span id="filtered" class="filtered"></span></p>
+        <p><em>Processed at: <span id="timestamp"></span></em></p>
+    </div>
+
+    <script>
+        document.getElementById('filterBtn').addEventListener('click', function() {
+            const text = document.getElementById('inputText').value.trim();
+            if (!text) {
+                alert('Please enter some text');
+                return;
+            }
+
+            fetch('/filter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `text=${encodeURIComponent(text)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('original').textContent = data.original;
+                document.getElementById('normalized').textContent = data.normalized;
+                document.getElementById('filtered').textContent = data.filtered;
+                document.getElementById('timestamp').textContent = data.timestamp;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        });
+    </script>
+</body>
+</html>
